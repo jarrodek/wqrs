@@ -1,5 +1,6 @@
 name: wqrs
-description: A sample web application
+description: Web's qualitative research suite.
 dependencies:
   browser: any
+  browser_detect: any
   uuid: any

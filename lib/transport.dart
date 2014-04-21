@@ -1,6 +1,7 @@
 library wqrs.lib.services.transport;
 
 import 'dart:convert';
+import 'dart:async';
 
 class EventType {
   static const String SCROLL = 'sc';
@@ -70,5 +71,56 @@ class EventMouseMove extends EventObject {
     Map map = getMap();
     map['sq'] = sequence;
     return JSON.encode(map);
+  }
+}
+
+class CoordinateEvent extends EventObject {
+  /// Event time. It is value from window.performance.now() which is the time since page load. 
+  double pagetime;
+  int x;
+  int y;
+  
+  CoordinateEvent(String uid, String sid, this.pagetime, DateTime time, String type, this.x, this.y): super.fromData(uid, sid, time, type);
+  
+  String toString() {
+    Map map = getMap();
+    map['pt'] = pagetime;
+    map['x'] = x;
+    map['y'] = y;
+    return JSON.encode(map);
+  }
+}
+
+
+/**
+ * The [Transporter] class is responsible to packing events in a packet (depends on event type) and send it to the server.
+ */
+class Transporter {
+  
+  List _eventsToSend = [];
+  Map<String, EventObject> _appEvents = new Map<String, EventObject>();
+  bool _activated = false;
+  bool get active => _activated;
+  
+  ///Activate [Transporter] and wait for new events. 
+  void run(){
+    if(_activated) return;
+    
+    var stream = new Stream.fromIterable(_eventsToSend);
+    stream.listen(_send);
+    
+    _activated = true;
+  }
+  
+  void _send(dynamic data){
+    
+  }
+  
+  void appendEvent(EventObject data){
+    String type = data.type;
+    if(_appEvents.containsKey(type)){
+      
+    }
+    
   }
 }

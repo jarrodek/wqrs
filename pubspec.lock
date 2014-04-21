@@ -9,6 +9,10 @@ packages:
     description: browser
     source: hosted
     version: "0.10.0+2"
+  browser_detect:
+    description: browser_detect
+    source: hosted
+    version: "1.0.3"
   cipher:
     description: cipher
     source: hosted
