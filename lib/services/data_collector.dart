@@ -34,7 +34,8 @@ class DataCollector {
       'bv': browserVersion,
       'pt': pageTitle,
       'ui': session.uid,
-      'si': session.sid
+      'si': session.sid,
+      'vp': viewPort
     };
   }
 }
